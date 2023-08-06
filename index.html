@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .back {
+            background-color: rgb(240, 201, 201);
+        }
+        
+        header {
+            position: sticky;
+            top: 0;
+            left: 0;
+        }
+        
+        nav {
+            width: 100%;
+            height: 10vh;
+            background: transparent;
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0, 5px, 15px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-right: 20px;
+            padding-top: 10px;
+        }
+        
+        div.logos {
+            width: 25%;
+            text-align: center;
+            background-color: rgb(29, 48, 97);
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border-width: 20%;
+            cursor: pointer;
+        }
+        
+        div.Menu {
+            width: 40%;
+            display: flex;
+            justify-content: space-around;
+            text-decoration: none;
+            color: azure;
+            font-weight: bold;
+            color: white;
+            position: relative;
+        }
+        
+        div.Menu a {
+            width: 25%;
+            text-decoration: none;
+            color: rgb(208, 188, 226);
+            transition: 0.3s ease;
+        }
+        
+        div.Menu a:hover,
+        div.Menu a.active {
+            color: aqua;
+            ;
+        }
+        
+        div.Menu a.active::after,
+        div.Menu a:hover::after {
+            content: none;
+            width: 30%;
+            height: 2px;
+            background: red;
+            position: absolute;
+            bottom: -4px;
+            left: 20px;
+        }
+        
+        #hero {
+            background-image: url('letter-bg-01.jpeg');
+            height: 100vh;
+            width: 100%;
+            background-size: cover;
+            background-position: top 25% right0;
+            padding: 0 80px;
+            padding-top: 15%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            color: #f5fbff;
+        }
+        
+        #hero h4 {
+            padding-bottom: 15px;
+        }
+        
+        #hero h1 {
+            color: aqua;
+        }
+        
+        #hero button {
+            background-image: url("pexels-riccardo-bertolo-4245826.jpg");
+            background-color: transparent;
+            color: aqua;
+            border: 0;
+            padding: 14px 80px 14px 65px;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 15px;
+        }
+        
+        .feature {
+            display: flex;
+            background: rgb(29, 48, 97);
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        #product1 {
+            text-align: center;
+            align-items: center;
+        }
+        
+        #product1 .pro {
+            background-color: #f5fbff;
+            width: 23%;
+            min-width: 250px;
+            padding: 10px 12px;
+            border: 1px solid #cce7d0;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+            margin: 15px 0;
+            transition: 0.2s ease;
+        }
+        
+        #product1 .pro img {
+            width: 100%;
+            border-radius: 20px;
+        }
+        
+        #product1 .pro:hover {
+            box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
+        }
+        
+        #product1 .pro .des {
+            text-align: start;
+            padding: 10px 0;
+        }
+        
+        #product1 .pro .des span {
+            color: black;
+            font-size: 12px;
+        }
+        
+        #product1 .pro .des h5 {
+            padding-top: 7px;
+            color: #1a1a1a;
+            font-size: 14px;
+        }
+        
+        #product1 .pro .des h4 {
+            padding-top: 7px;
+            font-size: 15px;
+            font-weight: 700;
+            color: aqua;
+        }
+        
+        #product1 .pro-container {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            flex-wrap: wrap;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        
+        .btnpost-popup {
+            width: 130px;
+            height: 30px;
+            background: transparent;
+            border: 2px solid #fff;
+            outline: none;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-left: 40px;
+            transition: 0.5sec;
+        }
+        
+        .btnpost-popup:hover {
+            color: #162938;
+            background: #fff;
+        }
+        
+        .wrapper {
+            position: absolute;
+            top: 100px;
+            left: 600px;
+            width: 400px;
+            height: 440px;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, .5);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transform: scale(0);
+            transition: transform .5s ease, height .2s ease;
+        }
+        
+        .wrapper.active-popup {
+            transform: scale(1);
+        }
+        
+        .wrapper.active {
+            height: 520px;
+        }
+        
+        .wrapper .form-box {
+            width: 100%;
+            padding: 40px;
+        }
+        
+        .wrapper .form-box.post {
+            transition: transform .18s ease;
+            transform: translate(0);
+        }
+        
+        .wrapper.active .form-box.post {
+            transition: none;
+            transform: translate(-400px);
+        }
+        
+        .wrapper .form-box.vpos {
+            position: absolute;
+            transition: none;
+            transform: translateX(400px);
+        }
+        
+        .wrapper.active .form-box.vpos {
+            transition: transform .18s ease;
+            transform: translate(0);
+        }
+        
+        span button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45px;
+            height: 45px;
+            background: #162938;
+            font-size: 1em;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom-left-radius: 20px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        
+        .form-box h2 {
+            font-size: 2rem;
+            color: #96afc3;
+            text-align: center;
+        }
+        
+        .input-box {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            border-bottom: 2px solid #162938;
+            margin: 30px 0;
+        }
+        
+        .input-box label {
+            position: absolute;
+            top: 50%;
+            left: 5px;
+            transform: translateY(-50%);
+            font-size: 1em;
+            color: #162938;
+            font-weight: 500;
+            pointer-events: none;
+            transition: .5s;
+        }
+        
+        .input-box input:focus~label,
+        .input-box input:valid~label {
+            top: -5px;
+        }
+        
+        .input-box input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 1em;
+            color: #162938;
+            font-weight: 600;
+            padding: 0 35px 0 5px;
+        }
+        
+        .remember-forgot {
+            font-size: .9em;
+            color: #162938;
+            font-weight: 500;
+            margin: -15px 0 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .remember-forgot label input {
+            accent-color: #162938;
+            margin-right: 3px;
+        }
+        
+        .remember-forgot a {
+            color: #162938;
+            text-decoration: none;
+        }
+        
+        .remember-forgot a:hover {
+            text-decoration: underline;
+        }
+        
+        .btn {
+            width: 100%;
+            height: 45px;
+            background: #162938;
+            border: none;
+            outline: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .post-vpos {
+            font-size: .9em;
+            color: #162938;
+            text-align: center;
+            font-weight: 500;
+            margin: 25px 0 10px;
+        }
+        
+        .post-vpos p a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .post-vpos p a:hover {
+            text-decoration: underline;
+        }
+        
+        .hov {
+            margin-top: -10px;
+        }
+        
+        .pro1 video {
+            width: 100%;
+            height: auto;
+        }
+        
+        .sep {
+            text-align: center;
+            align-items: center;
+            width: 100%;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logos">
+                <h1>
+                    Content-M-Tool
+                </h1>
+
+            </div>
+            <div class="Menu">
+
+                <a class="active" href="home.html" style="color: aqua;"> Home</a>
+                <a href="#product1"> Content</a>
+                <button class="btnpost-popup">post</button>
+
+            </div>
+        </nav>
+        <main>
+
+        </main>
+    </header>
+    <section id="hero">
+        <h4>Manage Your Content Here!</h4>
+        <h2>Content-Management-Tool</h2>
+        <h1>Easily Manage Content</h1>
+        <p style="margin-top: 10px;">Post Image and Video Related To Content</p>
+
+
+    </section>
+    <div class="wrapper">
+        <span class="close"><button>X</button></span>
+        <div class="form-box post">
+            <h2>Content</h2>
+            <form action="#">
+                <div class="input-box">
+                    <span class="icon">   </span>
+                    <input type="text" id="title" required style="color: white;">
+                    <label style="color: white;">Title</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">   </span>
+                    <input type="text" id="content" required style="color: white;">
+                    <label style="color: white;">Description</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">   </span>
+                    <input type="file" id="image">
+                    <label class="hov" style="color: white;">Select image</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox"> Check for comfirm! </label>
+
+                </div>
+                <button type="submit" id="subp" class="btn">Post</button>
+                <div class="post-vpos">
+                    <p>Don't you want to post video ? <a href="#" class="vpos-link"> Post video</a></p>
+                </div>
+
+            </form>
+        </div>
+        <div class="form-box vpos">
+            <h2>content </h2>
+            <form action="#">
+                <div class="input-box">
+                    <span class="icon">   </span>
+                    <input type="text" id="title1" style="color: white;">
+                    <label style="color: white;">Title </label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">   </span>
+                    <input type="text" id="content1" style="color: white;">
+                    <label style="color: white;">Description</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">   </span>
+                    <input type="file" id="video" accept="video/*">
+                    <label style="color: white;"> Select Video</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox"> I agree to submit my Contentthe terms and condition  </label>
+                </div>
+                <button type="submit" class="btn" id="subp1">Post
+                </button>
+                <div class="post-vpos">
+                    <p>Already have posted? <a href="#" class="post-link"> post </a></p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="sep">
+        <h2>Your Content</h2>
+        <p>Your content is here which you already posted..</p>
+    </div>
+
+
+    <section id="product1" class="feature">
+        <div class="pro-container">
+            <!-- <div class="pro">
+                <img src="letter-bg-01.jpeg" height="180px" alt="">
+                <div class="des">
+                    <span>adidas</span>
+                    <h5>T-shirt</h5>
+                    <h4>$40</h4>
+                </div>
+                <a href="#"></a>
+            </div> -->
+        </div>
+
+    </section>
+
+
+
+
+    <script>
+        const wrapper = document.querySelector('.wrapper');
+        const postLink = document.querySelector('.post-link');
+        const vposLink = document.querySelector('.vpos-link');
+        const btnPopup = document.querySelector('.btnpost-popup');
+        const close = document.querySelector('.close');
+
+        vposLink.addEventListener('click', () => {
+            wrapper.classList.add('active');
+        });
+
+        postLink.addEventListener('click', () => {
+            wrapper.classList.remove('active');
+        });
+        btnPopup.addEventListener('click', () => {
+            wrapper.classList.add('active-popup');
+        });
+        close.addEventListener('click', () => {
+            wrapper.classList.remove('active-popup');
+        });
+        const afterclick = document.querySelector('.Menu');
+        let change = document.getElementsByClassName('logos')[1];
+        afterclick.addEventListener('click', () => {
+            Element.innerHTML = "new ";
+            console.log("we clicked");
+        })
+
+
+
+
+
+
+
+
+
+
+        subp.addEventListener('click', function submitForm() {
+            var title = document.getElementById('title').value;
+            var content = document.getElementById('content').value;
+            var image = document.getElementById('image').files[0];
+
+            var pro = document.querySelector('.pro');
+            var sect = document.querySelector('#product1');
+            var subp = document.querySelector('#subp');
+
+
+
+            var newcont = "<div class='pro'>" +
+                "<div class='pro'>" +
+                "<h3 class='des'><b>Title:</b>" + title + "</h3>" +
+                "</div>" +
+                "<div class='des'>" +
+                "<p><b>Content: </b>" + content + "</p>";
+
+
+
+
+
+
+
+            if (image) {
+                var imagePreview = document.createElement('img');
+                imagePreview.src = URL.createObjectURL(image);
+                imagePreview.style.maxWidth = '100%';
+                imagePreview.style.height = 'auto';
+                imagePreview.style.marginTop = '10px';
+                newcont += "<p><b>Image:</b></p>";
+                newcont += "<div >" +
+                    "<img src='" + imagePreview.src + "' alt='Selected Image'>" +
+                    "</div>";
+            }
+
+
+
+
+            newcont += "</div></div>";
+
+            sect.innerHTML += newcont;
+
+            document.getElementById('title').value = '';
+            document.getElementById('content').value = '';
+            document.getElementById('image').value = '';
+            document.getElementById('video').value = '';
+            wrapper.classList.remove('active-popup');
+        });
+
+        subp1.addEventListener('click', function submitForm1() {
+            var title1 = document.getElementById('title1').value;
+            var content1 = document.getElementById('content1').value;
+            var video = document.getElementById('video').files[0];
+            var pro = document.querySelector('.pro');
+            var sect = document.querySelector('#product1');
+            var subp = document.querySelector('#subp');
+
+            console.log(title.value);
+
+
+
+
+
+            var newcont = "<div class='pro'>" +
+                "<div class='pro'>" +
+                "<h3 class='des'><b>Title:</b>" + title1 + "</h3>" +
+                "</div>" +
+                "<div class='des'>" +
+                "<p><b>Content: </b>" + content1 + "</p>";
+
+
+
+            if (video) {
+                var videoPreview = document.createElement('video');
+                videoPreview.src = URL.createObjectURL(video);
+                videoPreview.controls = true;
+                videoPreview.autoplay = true;
+                videoPreview.style.maxWidth = '100%';
+                videoPreview.style.height = 'auto';
+                videoPreview.style.marginTop = '20px';
+                newcont += "<p><b>Video:</b></p>";
+                newcont += "<div  class='pro1'>" +
+                    "<video src='" + videoPreview.src + "' controls autoplay></video>" +
+                    "</div>";
+            }
+
+            newcont += "</div></div>";
+
+            sect.innerHTML += newcont;
+
+            document.getElementById('title1').value = '';
+            document.getElementById('content1').value = '';
+            document.getElementById('image').value = '';
+            document.getElementById('video').value = '';
+            wrapper.classList.remove('active-popup');
+        });
+    </script>
+</body>
+
+</html>
